@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "compilerOptions": {
     "target": "ES2022",
     "useDefineForClassFields": true,
@@ -22,4 +23,11 @@
   },
   "include": ["src"],
   "references": []
+=======
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+>>>>>>> c87fc0cfc307584c5ed63625acde646e36663d0e
 }
