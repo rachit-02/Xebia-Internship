@@ -1,0 +1,330 @@
+[
+  {
+    "id": "cs-001",
+    "name": "Computer Science",
+    "code": "CSE",
+    "hod": "Dr. Ayesha Khan",
+    "email": "cse@university.edu",
+    "phone": "9876543210",
+    "building": "Innovation Block",
+    "description": "Focuses on software systems, artificial intelligence, cybersecurity, and scalable product engineering.",
+    "facultyCount": 42,
+    "studentCount": 1180,
+    "programs": 5,
+    "courses": 38,
+    "status": "active",
+    "createdAt": "2022-06-12T09:00:00.000Z",
+    "updatedAt": "2026-06-27T12:10:00.000Z",
+    "researchProjects": 14,
+    "upcomingEvents": [
+      { "title": "AI Research Symposium", "date": "2026-07-09", "location": "Auditorium A" },
+      { "title": "Cloud Security Workshop", "date": "2026-07-15", "location": "Lab Complex 2" }
+    ],
+    "announcements": [
+      { "title": "New GPU Lab Opened", "body": "A dedicated AI lab is now available for graduate research.", "date": "2026-06-28" },
+      { "title": "Internship Drive", "body": "Industry partners will visit next week for placements.", "date": "2026-06-24" }
+    ],
+    "activity": [
+      { "label": "Faculty Review", "detail": "Quarterly review completed for 18 faculty members", "time": "2 hours ago" },
+      { "label": "Program Update", "detail": "B.Tech AI curriculum refreshed", "time": "Yesterday" }
+    ]
+  },
+  {
+    "id": "me-002",
+    "name": "Mechanical Engineering",
+    "code": "MEC",
+    "hod": "Dr. Vikram Rao",
+    "email": "mec@university.edu",
+    "phone": "9876543211",
+    "building": "Engineering Tower",
+    "description": "Mechanical systems, thermal science, robotics, and advanced manufacturing labs.",
+    "facultyCount": 34,
+    "studentCount": 890,
+    "programs": 4,
+    "courses": 31,
+    "status": "active",
+    "createdAt": "2022-08-18T09:00:00.000Z",
+    "updatedAt": "2026-06-25T15:30:00.000Z",
+    "researchProjects": 9,
+    "upcomingEvents": [
+      { "title": "Robotics Expo", "date": "2026-07-12", "location": "Workshop Hall" }
+    ],
+    "announcements": [
+      { "title": "Lab Maintenance Window", "body": "Manufacturing lab will remain closed Friday evening.", "date": "2026-06-23" }
+    ],
+    "activity": [
+      { "label": "Workshop Audit", "detail": "Equipment compliance verified", "time": "5 hours ago" },
+      { "label": "Student Mentoring", "detail": "Final-year projects reviewed", "time": "Yesterday" }
+    ]
+  },
+  {
+    "id": "ce-003",
+    "name": "Civil Engineering",
+    "code": "CIV",
+    "hod": "Dr. Meera Sharma",
+    "email": "civil@university.edu",
+    "phone": "9876543212",
+    "building": "North Wing",
+    "description": "Infrastructure planning, structural design, transportation engineering, and smart cities.",
+    "facultyCount": 29,
+    "studentCount": 760,
+    "programs": 4,
+    "courses": 28,
+    "status": "active",
+    "createdAt": "2022-09-02T09:00:00.000Z",
+    "updatedAt": "2026-06-21T11:00:00.000Z",
+    "researchProjects": 7,
+    "upcomingEvents": [
+      { "title": "Smart Infrastructure Seminar", "date": "2026-07-18", "location": "Seminar Hall" }
+    ],
+    "announcements": [
+      { "title": "Site Visit Planned", "body": "Third-year students will visit a metro expansion site.", "date": "2026-06-20" }
+    ],
+    "activity": [
+      { "label": "Field Survey", "detail": "Bridge design survey submitted", "time": "4 hours ago" }
+    ]
+  },
+  {
+    "id": "ee-004",
+    "name": "Electrical Engineering",
+    "code": "EEE",
+    "hod": "Dr. Nitin Verma",
+    "email": "eee@university.edu",
+    "phone": "9876543213",
+    "building": "Power House",
+    "description": "Power systems, control engineering, industrial automation, and energy analytics.",
+    "facultyCount": 31,
+    "studentCount": 810,
+    "programs": 4,
+    "courses": 29,
+    "status": "active",
+    "createdAt": "2022-10-10T09:00:00.000Z",
+    "updatedAt": "2026-06-22T08:50:00.000Z",
+    "researchProjects": 11,
+    "upcomingEvents": [
+      { "title": "Grid Simulation Demo", "date": "2026-07-14", "location": "Control Lab" }
+    ],
+    "announcements": [
+      { "title": "Energy Audit Completed", "body": "Annual power consumption review is now published.", "date": "2026-06-19" }
+    ],
+    "activity": [
+      { "label": "Lab Calibration", "detail": "Control systems lab calibrated", "time": "6 hours ago" }
+    ]
+  },
+  {
+    "id": "ai-005",
+    "name": "AI & Machine Learning",
+    "code": "AIM",
+    "hod": "Dr. Sana Iqbal",
+    "email": "aiml@university.edu",
+    "phone": "9876543214",
+    "building": "Innovation Block",
+    "description": "Advanced AI, machine learning, data systems, and responsible model deployment.",
+    "facultyCount": 18,
+    "studentCount": 420,
+    "programs": 3,
+    "courses": 22,
+    "status": "active",
+    "createdAt": "2023-01-16T09:00:00.000Z",
+    "updatedAt": "2026-06-29T10:20:00.000Z",
+    "researchProjects": 16,
+    "upcomingEvents": [
+      { "title": "ML Ops Bootcamp", "date": "2026-07-20", "location": "Lab 3" }
+    ],
+    "announcements": [
+      { "title": "Model Registry Live", "body": "Departments can now publish experiment artifacts.", "date": "2026-06-29" }
+    ],
+    "activity": [
+      { "label": "Paper Submission", "detail": "Three faculty papers accepted", "time": "Just now" }
+    ]
+  },
+  {
+    "id": "ba-006",
+    "name": "Business Administration",
+    "code": "BBA",
+    "hod": "Dr. Kavita Menon",
+    "email": "bba@university.edu",
+    "phone": "9876543215",
+    "building": "Commerce Centre",
+    "description": "Management, leadership, strategy, business analytics, and entrepreneurship.",
+    "facultyCount": 24,
+    "studentCount": 640,
+    "programs": 4,
+    "courses": 25,
+    "status": "active",
+    "createdAt": "2022-07-04T09:00:00.000Z",
+    "updatedAt": "2026-06-18T09:10:00.000Z",
+    "researchProjects": 5,
+    "upcomingEvents": [
+      { "title": "Startup Pitch Day", "date": "2026-07-22", "location": "Startup Studio" }
+    ],
+    "announcements": [
+      { "title": "Mentorship Program", "body": "Alumni mentoring slots are now open.", "date": "2026-06-17" }
+    ],
+    "activity": [
+      { "label": "Program Review", "detail": "MBA curriculum committee meeting held", "time": "1 day ago" }
+    ]
+  },
+  {
+    "id": "ar-007",
+    "name": "Architecture",
+    "code": "ARC",
+    "hod": "Dr. Rhea Desai",
+    "email": "arc@university.edu",
+    "phone": "9876543216",
+    "building": "Design Pavilion",
+    "description": "Design studios, sustainable architecture, visualization, and urban planning.",
+    "facultyCount": 21,
+    "studentCount": 330,
+    "programs": 3,
+    "courses": 19,
+    "status": "inactive",
+    "createdAt": "2023-02-11T09:00:00.000Z",
+    "updatedAt": "2026-06-10T13:45:00.000Z",
+    "researchProjects": 4,
+    "upcomingEvents": [
+      { "title": "Design Critique Week", "date": "2026-07-25", "location": "Studio A" }
+    ],
+    "announcements": [
+      { "title": "Studio Migration", "body": "Two classes will move to the temporary gallery block.", "date": "2026-06-09" }
+    ],
+    "activity": [
+      { "label": "Portfolio Review", "detail": "Final exhibition shortlisted", "time": "2 days ago" }
+    ]
+  },
+  {
+    "id": "ph-008",
+    "name": "Physics",
+    "code": "PHY",
+    "hod": "Dr. Ramesh Iyer",
+    "email": "phy@university.edu",
+    "phone": "9876543217",
+    "building": "Science Block",
+    "description": "Applied physics, materials, optics, and instrumentation research.",
+    "facultyCount": 17,
+    "studentCount": 280,
+    "programs": 2,
+    "courses": 16,
+    "status": "active",
+    "createdAt": "2022-11-14T09:00:00.000Z",
+    "updatedAt": "2026-06-14T08:40:00.000Z",
+    "researchProjects": 8,
+    "upcomingEvents": [
+      { "title": "Photonics Colloquium", "date": "2026-07-28", "location": "Lecture Hall 1" }
+    ],
+    "announcements": [
+      { "title": "Spectroscopy Unit Upgraded", "body": "New instrumentation is now available for labs.", "date": "2026-06-12" }
+    ],
+    "activity": [
+      { "label": "Grant Review", "detail": "External grant package submitted", "time": "3 days ago" }
+    ]
+  },
+  {
+    "id": "ma-009",
+    "name": "Mathematics",
+    "code": "MAT",
+    "hod": "Dr. Priya Nair",
+    "email": "math@university.edu",
+    "phone": "9876543218",
+    "building": "Science Block",
+    "description": "Foundational mathematics, statistics, computation, and applied modeling.",
+    "facultyCount": 16,
+    "studentCount": 300,
+    "programs": 3,
+    "courses": 18,
+    "status": "active",
+    "createdAt": "2022-12-01T09:00:00.000Z",
+    "updatedAt": "2026-06-11T17:15:00.000Z",
+    "researchProjects": 6,
+    "upcomingEvents": [
+      { "title": "Data Science Seminar", "date": "2026-07-30", "location": "Seminar Hall" }
+    ],
+    "announcements": [
+      { "title": "Math Olympiad Coaching", "body": "Registration is open for high performers.", "date": "2026-06-10" }
+    ],
+    "activity": [
+      { "label": "Schedule Update", "detail": "Statistics elective moved to block B", "time": "2 days ago" }
+    ]
+  },
+  {
+    "id": "bi-010",
+    "name": "Biotechnology",
+    "code": "BIO",
+    "hod": "Dr. Neha Kapoor",
+    "email": "bio@university.edu",
+    "phone": "9876543219",
+    "building": "Life Sciences Wing",
+    "description": "Genomics, bioinformatics, fermentation, and translational research labs.",
+    "facultyCount": 26,
+    "studentCount": 520,
+    "programs": 3,
+    "courses": 21,
+    "status": "inactive",
+    "createdAt": "2023-03-05T09:00:00.000Z",
+    "updatedAt": "2026-05-30T11:50:00.000Z",
+    "researchProjects": 10,
+    "upcomingEvents": [
+      { "title": "Genome Lab Orientation", "date": "2026-07-21", "location": "Bio Lab 2" }
+    ],
+    "announcements": [
+      { "title": "Research Freeze Lifted", "body": "Experimental samples can be booked again.", "date": "2026-05-28" }
+    ],
+    "activity": [
+      { "label": "Safety Audit", "detail": "Biohazard protocols certified", "time": "3 days ago" }
+    ]
+  },
+  {
+    "id": "hs-011",
+    "name": "Humanities",
+    "code": "HUM",
+    "hod": "Dr. Farah Ali",
+    "email": "humanities@university.edu",
+    "phone": "9876543220",
+    "building": "Arts Courtyard",
+    "description": "Communication, sociology, history, and interdisciplinary liberal studies.",
+    "facultyCount": 14,
+    "studentCount": 240,
+    "programs": 2,
+    "courses": 14,
+    "status": "active",
+    "createdAt": "2023-01-20T09:00:00.000Z",
+    "updatedAt": "2026-06-08T12:00:00.000Z",
+    "researchProjects": 3,
+    "upcomingEvents": [
+      { "title": "Public Lecture Series", "date": "2026-07-26", "location": "Gallery Hall" }
+    ],
+    "announcements": [
+      { "title": "New Writing Lab", "body": "A quiet study and writing space has opened.", "date": "2026-06-07" }
+    ],
+    "activity": [
+      { "label": "Guest Lecture", "detail": "Visiting scholar session completed", "time": "4 days ago" }
+    ]
+  },
+  {
+    "id": "la-012",
+    "name": "Law",
+    "code": "LAW",
+    "hod": "Dr. Arjun Bose",
+    "email": "law@university.edu",
+    "phone": "9876543221",
+    "building": "Justice Annex",
+    "description": "Constitutional law, corporate law, mediation, and legal research clinics.",
+    "facultyCount": 19,
+    "studentCount": 410,
+    "programs": 3,
+    "courses": 20,
+    "status": "active",
+    "createdAt": "2023-04-02T09:00:00.000Z",
+    "updatedAt": "2026-06-26T16:05:00.000Z",
+    "researchProjects": 5,
+    "upcomingEvents": [
+      { "title": "Moot Court Finals", "date": "2026-07-31", "location": "Court Hall" }
+    ],
+    "announcements": [
+      { "title": "Legal Aid Clinic", "body": "New clinic hours published for the semester.", "date": "2026-06-25" }
+    ],
+    "activity": [
+      { "label": "Case Study Review", "detail": "Corporate law case pack updated", "time": "1 day ago" }
+    ]
+  }
+]
