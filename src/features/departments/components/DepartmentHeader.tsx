@@ -1,4 +1,4 @@
-import { ArrowDownToLine, Plus } from 'lucide-react';
+import { ArrowDownToLine, ArrowUpFromLine, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Link } from 'react-router-dom';
 
@@ -6,9 +6,11 @@ type DepartmentHeaderProps = {
   title: string;
   subtitle: string;
   showActions?: boolean;
+  onImport?: () => void;
+  onExport?: () => void;
 };
 
-export function DepartmentHeader({ title, subtitle, showActions = true }: DepartmentHeaderProps) {
+export function DepartmentHeader({ title, subtitle, showActions = true, onImport, onExport }: DepartmentHeaderProps) {
   return (
     <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
       <div>
@@ -19,7 +21,12 @@ export function DepartmentHeader({ title, subtitle, showActions = true }: Depart
 
       {showActions ? (
         <div className="flex flex-wrap gap-3">
-          <Button variant="secondary" icon={<ArrowDownToLine className="h-4 w-4" />}>Export</Button>
+          <Button type="button" variant="secondary" icon={<ArrowUpFromLine className="h-4 w-4" />} onClick={onImport} disabled={!onImport}>
+            Import CSV
+          </Button>
+          <Button type="button" variant="secondary" icon={<ArrowDownToLine className="h-4 w-4" />} onClick={onExport} disabled={!onExport}>
+            Export CSV
+          </Button>
           <Link
             to="/departments/new"
             className="focus-ring inline-flex items-center justify-center gap-2 rounded-2xl border border-transparent bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-dark"

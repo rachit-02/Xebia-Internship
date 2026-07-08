@@ -1,4 +1,5 @@
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
+import type { ReactNode } from 'react';
 import { Bell, Grid3X3, Menu, Search, UserCircle2 } from 'lucide-react';
 import { Sidebar } from './Sidebar';
 import { cn } from '@/lib/utils';
@@ -32,7 +33,7 @@ export function AppShell({ children }: AppShellProps) {
             </div>
 
             <div className="hidden flex-1 items-center justify-center px-8 md:flex">
-              <div className="flex w-full max-w-xl items-center gap-3 rounded-full border border-border bg-[#fbfbfe] px-4 py-2.5 shadow-sm">
+              <div className="flex w-full max-w-xl items-center gap-3 rounded-full border border-border bg-surface-soft px-4 py-2.5 shadow-sm">
                 <Search className="h-4 w-4 text-muted" />
                 <input
                   aria-label="Search"

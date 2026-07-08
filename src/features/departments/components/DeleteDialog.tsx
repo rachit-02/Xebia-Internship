@@ -1,5 +1,4 @@
 import { Modal } from '@/components/ui/Modal';
-import { Button } from '@/components/ui/Button';
 
 export function DeleteDialog({ open, name, onClose, onConfirm }: { open: boolean; name: string; onClose: () => void; onConfirm: () => void }) {
   return (
@@ -12,7 +11,7 @@ export function DeleteDialog({ open, name, onClose, onConfirm }: { open: boolean
       confirmLabel="Delete Department"
       danger
     >
-      <div className="rounded-2xl border border-[rgba(239,68,68,0.18)] bg-[rgba(239,68,68,0.06)] p-4 text-sm text-text">
+      <div className="rounded-2xl border border-danger-soft-border bg-danger-soft p-4 text-sm text-text">
         Deleting this department removes it from the list and details view in the current frontend session.
       </div>
     </Modal>

@@ -1,10 +1,10 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { FormEvent } from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Input, Select, Textarea } from '@/components/ui/Field';
-import { cn } from '@/lib/utils';
-import type { Department, DepartmentStatus } from '@/types/department';
+import type { DepartmentStatus } from '@/types/department';
 
 export type DepartmentFormValues = {
   name: string;
@@ -79,7 +79,7 @@ export function DepartmentForm({ initialValues = emptyValues, mode, onSubmit, on
             <h2 className="text-xl font-bold text-heading">General Information</h2>
             <p className="mt-1 text-sm text-text">Keep department records accurate and enterprise ready.</p>
           </div>
-          {success ? <span className="inline-flex items-center gap-2 rounded-full bg-[rgba(1,172,159,0.12)] px-3 py-2 text-sm font-semibold text-success"><CheckCircle2 className="h-4 w-4" />Saved</span> : null}
+          {success ? <span className="inline-flex items-center gap-2 rounded-full bg-success-soft px-3 py-2 text-sm font-semibold text-success"><CheckCircle2 className="h-4 w-4" />Saved</span> : null}
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">

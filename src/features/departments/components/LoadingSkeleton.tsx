@@ -8,7 +8,7 @@ export function LoadingSkeleton() {
       </div>
       <div className="rounded-[16px] border border-border bg-white p-4 shadow-sm">
         {Array.from({ length: 6 }).map((_, index) => (
-          <div key={index} className="mb-3 h-12 animate-pulse rounded-2xl bg-[#F3F4F6] last:mb-0" />
+          <div key={index} className="mb-3 h-12 animate-pulse rounded-2xl bg-surface-lilac last:mb-0" />
         ))}
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { DepartmentHeader } from '../components/DepartmentHeader';
 import { SearchBar } from '../components/SearchBar';
@@ -11,7 +11,7 @@ import { EmptyState } from '../components/EmptyState';
 import { ErrorState } from '../components/ErrorState';
 import { DeleteDialog } from '../components/DeleteDialog';
 import { Pagination } from '../components/Pagination';
-import { getDepartmentFilters, getDepartments, deleteDepartment } from '../api/departments';
+import { deleteDepartment, exportDepartmentsToCsv, getDepartmentFilters, getDepartments, importDepartmentsFromCsv } from '../api/departments';
 import type { Department, DepartmentFilters } from '@/types/department';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -21,6 +21,7 @@ export function DepartmentListPage() {
   const [filters, setFilters] = useState<DepartmentFilters>({ query: '', status: 'all', building: '' });
   const [page, setPage] = useState(1);
   const [deleteTarget, setDeleteTarget] = useState<Department | null>(null);
+  const importInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
 
   const summaryQuery = useQuery({ queryKey: ['department-summary'], queryFn: async () => getDepartmentFilters() });
@@ -52,9 +53,52 @@ export function DepartmentListPage() {
       ]
     : [];
 
+  const handleExport = () => {
+    const csv = exportDepartmentsToCsv(departmentsQuery.data ?? []);
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const downloadUrl = window.URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+
+    anchor.href = downloadUrl;
+    anchor.download = `departments-${new Date().toISOString().slice(0, 10)}.csv`;
+    anchor.click();
+
+    window.URL.revokeObjectURL(downloadUrl);
+  };
+
+  const handleImportClick = () => {
+    importInputRef.current?.click();
+  };
+
+  const handleImportFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+
+    if (!file) return;
+
+    try {
+      const csvText = await file.text();
+      const result = await importDepartmentsFromCsv(csvText);
+      await queryClient.invalidateQueries({ queryKey: ['departments'] });
+      await queryClient.invalidateQueries({ queryKey: ['department-summary'] });
+      setPage(1);
+      window.alert(`Imported ${result.imported} department${result.imported === 1 ? '' : 's'}. Total records: ${result.total}.`);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unable to import the selected CSV file.';
+      window.alert(message);
+    }
+  };
+
   return (
     <div className="space-y-6">
-      <DepartmentHeader title="Departments" subtitle="Manage academic departments and organizational structure." />
+      <DepartmentHeader
+        title="Departments"
+        subtitle="Manage academic departments and organizational structure."
+        onImport={handleImportClick}
+        onExport={handleExport}
+      />
+
+      <input ref={importInputRef} type="file" accept=".csv,text/csv" className="hidden" onChange={handleImportFile} />
 
       {summaryQuery.data ? <DepartmentStats items={cards} /> : null}
 

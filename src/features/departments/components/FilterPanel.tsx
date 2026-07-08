@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/Button';
 import { Select } from '@/components/ui/Field';
-import type { DepartmentFilters, DepartmentStatus } from '@/types/department';
+import type { DepartmentFilters } from '@/types/department';
 
 type FilterPanelProps = {
   filters: DepartmentFilters;

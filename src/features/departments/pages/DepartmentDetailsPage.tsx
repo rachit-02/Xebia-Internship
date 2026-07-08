@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { Building2, CalendarDays, Edit3, Mail, MapPin, Phone, Sparkles, Users } from 'lucide-react';
+import { CalendarDays, Edit3, Mail, MapPin, Phone, Users } from 'lucide-react';
 import { DepartmentHeader } from '../components/DepartmentHeader';
 import { DepartmentStats } from '../components/DepartmentStats';
 import { DepartmentTabs, type DepartmentTabKey } from '../components/DepartmentTabs';
@@ -12,13 +12,10 @@ import { getDepartmentById, getDepartmentSeries, getDepartmentStats } from '../a
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, BarChart, Bar, CartesianGrid } from 'recharts';
-import { DepartmentForm } from '../components/DepartmentForm';
-import { DepartmentCard } from '../components/DepartmentCard';
 import { Link } from 'react-router-dom';
 
 export function DepartmentDetailsPage() {
   const { departmentId = '' } = useParams();
-  const navigate = useNavigate();
   const [tab, setTab] = useState<DepartmentTabKey>('overview');
 
   const query = useQuery({ queryKey: ['department', departmentId], queryFn: async () => getDepartmentById(departmentId) });
@@ -41,7 +38,7 @@ export function DepartmentDetailsPage() {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div>
             <div className="flex flex-wrap items-center gap-3">
-              <span className="rounded-full bg-[rgba(108,29,95,0.12)] px-3 py-1 text-sm font-semibold text-primary">{department.code}</span>
+              <span className="rounded-full bg-primary-soft px-3 py-1 text-sm font-semibold text-primary">{department.code}</span>
               <StatusBadge status={department.status} />
             </div>
             <h2 className="mt-4 text-3xl font-bold text-heading">{department.name}</h2>
@@ -74,7 +71,7 @@ export function DepartmentDetailsPage() {
               <h3 className="text-xl font-bold text-heading">Recent Activity Timeline</h3>
               <div className="mt-5 space-y-4">
                 {department.activity.map((entry) => (
-                  <div key={entry.label} className="flex gap-4 rounded-2xl border border-border bg-[#FAFAFD] p-4">
+                  <div key={entry.label} className="flex gap-4 rounded-2xl border border-border bg-surface-muted p-4">
                     <div className="mt-1 h-2.5 w-2.5 rounded-full bg-primary" />
                     <div>
                       <p className="font-semibold text-heading">{entry.label}</p>
@@ -89,7 +86,7 @@ export function DepartmentDetailsPage() {
           <div className="space-y-6">
             <Card className="p-6">
               <h3 className="text-xl font-bold text-heading">Department Leadership</h3>
-              <div className="mt-4 rounded-2xl border border-border bg-[#FAFAFD] p-4">
+              <div className="mt-4 rounded-2xl border border-border bg-surface-muted p-4">
                 <p className="text-sm font-semibold text-heading">{department.hod}</p>
                 <p className="mt-1 text-sm text-text">Head of Department</p>
               </div>
@@ -127,7 +124,7 @@ export function DepartmentDetailsPage() {
             {Array.from({ length: 6 }).map((_, index) => (
               <div key={index} className="rounded-2xl border border-border p-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(108,29,95,0.12)] text-primary"><Users className="h-4 w-4" /></div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-soft text-primary"><Users className="h-4 w-4" /></div>
                   <div>
                     <p className="font-semibold text-heading">Faculty Member {index + 1}</p>
                     <p className="text-sm text-text">Professor</p>
@@ -206,7 +203,7 @@ export function DepartmentDetailsPage() {
 
 function InfoRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-border bg-[#FAFAFD] p-4">
+    <div className="rounded-2xl border border-border bg-surface-muted p-4">
       <div className="flex items-center gap-2 text-muted">
         {icon}
         <span className="text-xs font-medium uppercase tracking-[0.18em]">{label}</span>

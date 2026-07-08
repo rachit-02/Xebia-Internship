@@ -20,7 +20,7 @@ export function DepartmentTabs({ value, onChange }: { value: DepartmentTabKey; o
           onClick={() => onChange(tab.key)}
           className={cn(
             'focus-ring rounded-2xl px-4 py-2 text-sm font-semibold transition',
-            value === tab.key ? 'bg-[rgba(108,29,95,0.1)] text-primary' : 'text-text hover:bg-hover hover:text-heading',
+            value === tab.key ? 'bg-primary-soft text-primary' : 'text-text hover:bg-hover hover:text-heading',
           )}
         >
           {tab.label}

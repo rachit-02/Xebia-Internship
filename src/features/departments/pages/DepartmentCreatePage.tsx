@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { DepartmentHeader } from '../components/DepartmentHeader';
-import { DepartmentForm, DepartmentFormValues } from '../components/DepartmentForm';
+import { DepartmentForm } from '../components/DepartmentForm';
+import type { DepartmentFormValues } from '../components/DepartmentForm';
 import { createDepartment } from '../api/departments';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
