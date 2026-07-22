@@ -1,58 +1,43 @@
-import { useMemo } from 'react';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Mail, MapPin, Phone, Shield, Users } from 'lucide-react';
 import { DepartmentHeader } from '../components/DepartmentHeader';
 import { LoadingSkeleton } from '../components/LoadingSkeleton';
 import { ErrorState } from '../components/ErrorState';
-import { getDepartments } from '../api/departments';
-import type { Department } from '@/types/department';
+import { getUsers } from '@/features/users/api/users';
+import type { User } from '@/types/user';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 
-type DepartmentUser = {
-  id: string;
-  department: string;
-  name: string;
-  email: string;
-  phone: string;
-  building: string;
-  role: string;
-  status: Department['status'];
-};
-
 export function DepartmentUsersPage() {
-  const query = useQuery({ queryKey: ['department-users'], queryFn: async () => getDepartments({ query: '', status: 'all', building: '' }) });
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
+  
+  const query = useQuery({ 
+    queryKey: ['users', page, search], 
+    queryFn: async () => getUsers({ page, limit: 20, search }) 
+  });
 
-  const users = useMemo<DepartmentUser[]>(() => {
-    const departments = query.data ?? [];
-
-    return departments.map((department, index) => ({
-      id: department.id,
-      department: department.name,
-      name: department.hod,
-      email: department.email,
-      phone: department.phone,
-      building: department.building,
-      role: index === 0 ? 'Academic Lead' : 'Department Head',
-      status: department.status,
-    }));
-  }, [query.data]);
+  const users = query.data?.data ?? [];
+  const meta = query.data?.meta;
 
   if (query.isLoading) return <LoadingSkeleton />;
-  if (query.isError) return <ErrorState message="The department users view could not be loaded from the mock store." onRetry={() => query.refetch()} />;
+  if (query.isError) return <ErrorState message="The users could not be loaded from the backend." onRetry={() => query.refetch()} />;
+
+  const activeUsers = users.filter(u => u.status === 'active').length;
 
   return (
     <div className="space-y-6 animate-page-fade">
       <DepartmentHeader
-        title="Department Users"
-        subtitle="Monitor academic leaders and contact details across all departments in one place."
+        title="University Users"
+        subtitle="Monitor academic leaders, staff, and contact details across the university."
         showActions={false}
       />
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard label="Department users" value={users.length} icon={<Users className="h-4 w-4" />} />
-        <StatCard label="Active leaders" value={users.filter((user) => user.status === 'active').length} icon={<Shield className="h-4 w-4" />} />
-        <StatCard label="Buildings" value={new Set(users.map((user) => user.building)).size} icon={<MapPin className="h-4 w-4" />} />
+        <StatCard label="Total Users" value={meta?.total ?? users.length} icon={<Users className="h-4 w-4" />} />
+        <StatCard label="Active Users" value={activeUsers} icon={<Shield className="h-4 w-4" />} />
+        <StatCard label="Page" value={page} icon={<MapPin className="h-4 w-4" />} />
         <StatCard label="Total contact points" value={users.length * 2} icon={<Mail className="h-4 w-4" />} />
       </div>
 
@@ -61,21 +46,44 @@ export function DepartmentUsersPage() {
           <Card key={user.id} className="animate-card-hover p-6">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">{user.department}</p>
-                <h3 className="mt-1 text-xl font-bold text-heading">{user.name}</h3>
-                <p className="mt-2 text-sm text-text">{user.role}</p>
+                <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">{user.department || 'General'}</p>
+                <h3 className="mt-1 text-xl font-bold text-heading">{user.firstName} {user.lastName}</h3>
+                <p className="mt-2 text-sm text-text capitalize">{user.role?.replace('_', ' ')}</p>
               </div>
               <Badge tone={user.status === 'active' ? 'success' : 'warning'}>{user.status === 'active' ? 'Active' : 'Inactive'}</Badge>
             </div>
 
             <div className="mt-5 space-y-3 text-sm text-text">
               <Row icon={<Mail className="h-4 w-4" />} label={user.email} />
-              <Row icon={<Phone className="h-4 w-4" />} label={user.phone} />
-              <Row icon={<MapPin className="h-4 w-4" />} label={user.building} />
+              {user.phone && <Row icon={<Phone className="h-4 w-4" />} label={user.phone} />}
+              {user.building && <Row icon={<MapPin className="h-4 w-4" />} label={user.building} />}
             </div>
           </Card>
         ))}
       </div>
+      
+      {/* Basic Pagination Controls */}
+      {meta && meta.totalPages > 1 && (
+        <div className="flex justify-center gap-2 mt-8">
+          <button 
+            disabled={page === 1}
+            onClick={() => setPage(p => p - 1)}
+            className="px-4 py-2 border border-border rounded-xl disabled:opacity-50"
+          >
+            Previous
+          </button>
+          <span className="px-4 py-2 flex items-center">
+            Page {page} of {meta.totalPages}
+          </span>
+          <button 
+            disabled={page === meta.totalPages}
+            onClick={() => setPage(p => p + 1)}
+            className="px-4 py-2 border border-border rounded-xl disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 }
