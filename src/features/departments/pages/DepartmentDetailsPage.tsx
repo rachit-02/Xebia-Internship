@@ -13,10 +13,14 @@ import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, BarChart, Bar, CartesianGrid } from 'recharts';
 import { Link } from 'react-router-dom';
+import { useAuth } from '@/features/auth/context/AuthContext';
+import { canEditDepartment } from '@/features/auth/utils/permissions';
 
 export function DepartmentDetailsPage() {
   const { departmentId = '' } = useParams();
   const [tab, setTab] = useState<DepartmentTabKey>('overview');
+  const { user } = useAuth();
+  const role = user?.role || 'student';
 
   const query = useQuery({ queryKey: ['department', departmentId], queryFn: async () => getDepartmentById(departmentId) });
   const department = query.data;
@@ -25,6 +29,8 @@ export function DepartmentDetailsPage() {
 
   if (query.isLoading) return <LoadingSkeleton />;
   if (query.isError || !department) return <ErrorState message="The department details could not be loaded." onRetry={() => query.refetch()} />;
+
+  const showEdit = canEditDepartment(role, department.id, user?.departmentId);
 
   return (
     <div className="space-y-6">
@@ -44,9 +50,11 @@ export function DepartmentDetailsPage() {
             <h2 className="mt-4 text-3xl font-bold text-heading">{department.name}</h2>
             <p className="mt-3 max-w-3xl text-sm text-text">Managed by {department.hod}. {department.description}</p>
           </div>
-          <Link to={`/departments/${department.id}/edit`}>
-            <Button icon={<Edit3 className="h-4 w-4" />}>Edit Department</Button>
-          </Link>
+          {showEdit && (
+            <Link to={`/departments/${department.id}/edit`}>
+              <Button icon={<Edit3 className="h-4 w-4" />}>Edit Department</Button>
+            </Link>
+          )}
         </div>
 
         <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">

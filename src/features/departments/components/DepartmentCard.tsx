@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/Card';
 import { StatusBadge } from './StatusBadge';
 import type { Department } from '@/types/department';
 
-export function DepartmentCard({ department }: { department: Department }) {
+export function DepartmentCard({ department, canEdit = true }: { department: Department; canEdit?: boolean }) {
   return (
     <Card className="group p-6 transition duration-200 hover:-translate-y-0.5 hover:shadow-lg">
       <div className="flex items-start justify-between gap-4">
@@ -25,9 +25,11 @@ export function DepartmentCard({ department }: { department: Department }) {
         <Link className="text-sm font-semibold text-primary hover:text-primary-dark" to={`/departments/${department.id}`}>
           View
         </Link>
-        <Link className="text-sm font-semibold text-text hover:text-heading" to={`/departments/${department.id}/edit`}>
-          Edit
-        </Link>
+        {canEdit && (
+          <Link className="text-sm font-semibold text-text hover:text-heading" to={`/departments/${department.id}/edit`}>
+            Edit
+          </Link>
+        )}
       </div>
     </Card>
   );

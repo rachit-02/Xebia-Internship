@@ -7,13 +7,13 @@ import { DepartmentListPage } from '../features/departments/pages/DepartmentList
 import { DepartmentUsersPage } from '../features/departments/pages/DepartmentUsersPage';
 import { LoginPage } from '../features/auth/pages/LoginPage';
 
+import { AuthProvider } from '../features/auth/context/AuthContext';
+
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   const location = useLocation();
 
   if (!token) {
-    // Redirect to the /login page, but save the current location they were
-    // trying to go to when they were redirected.
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
@@ -22,27 +22,29 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      
-      <Route
-        path="*"
-        element={
-          <ProtectedRoute>
-            <AppShell>
-              <Routes>
-                <Route path="/" element={<Navigate to="/departments" replace />} />
-                <Route path="/departments" element={<DepartmentListPage />} />
-                <Route path="/departments/users" element={<DepartmentUsersPage />} />
-                <Route path="/departments/new" element={<DepartmentCreatePage />} />
-                <Route path="/departments/:departmentId" element={<DepartmentDetailsPage />} />
-                <Route path="/departments/:departmentId/edit" element={<DepartmentEditPage />} />
-                <Route path="*" element={<Navigate to="/departments" replace />} />
-              </Routes>
-            </AppShell>
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        
+        <Route
+          path="*"
+          element={
+            <ProtectedRoute>
+              <AppShell>
+                <Routes>
+                  <Route path="/" element={<Navigate to="/login" replace />} />
+                  <Route path="/departments" element={<DepartmentListPage />} />
+                  <Route path="/departments/users" element={<DepartmentUsersPage />} />
+                  <Route path="/departments/new" element={<DepartmentCreatePage />} />
+                  <Route path="/departments/:departmentId" element={<DepartmentDetailsPage />} />
+                  <Route path="/departments/:departmentId/edit" element={<DepartmentEditPage />} />
+                  <Route path="*" element={<Navigate to="/departments" replace />} />
+                </Routes>
+              </AppShell>
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </AuthProvider>
   );
 }

@@ -1,8 +1,18 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Lock, Mail, ArrowRight, Building2, Loader2 } from 'lucide-react';
+import { Lock, Mail, ArrowRight, Building2, Loader2, ShieldCheck, UserCheck } from 'lucide-react';
 import { login } from '../api/auth';
+import { useAuth } from '../context/AuthContext';
+import type { UserRole } from '@/types/user';
+
+const DEMO_ROLES: Array<{ label: string; role: UserRole; email: string; desc: string }> = [
+  { label: 'Super Admin', role: 'super_admin', email: 'superadmin@university.edu', desc: 'Full System Control' },
+  { label: 'University Admin', role: 'university_admin', email: 'admin@university.edu', desc: 'All Departments CRUD' },
+  { label: 'Department Head', role: 'department_head', email: 'head@university.edu', desc: 'CS Dept Only' },
+  { label: 'Faculty', role: 'faculty', email: 'faculty@university.edu', desc: 'Read-only CS Dept' },
+  { label: 'Student', role: 'student', email: 'student@university.edu', desc: 'Basic Read-only' },
+];
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
@@ -10,32 +20,43 @@ export function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   
+  const { loginAsUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/departments';
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleAuth = async (targetEmail: string, targetPass: string) => {
     setError('');
     setIsLoading(true);
 
     try {
-      const response = await login(email, password);
-      
-      // We assume the token might be in response.token or response.data.token
-      const token = response.token || response.data?.token || response.accessToken;
-      
-      if (!token) {
-        throw new Error('Login successful but no token was returned.');
-      }
-      
-      localStorage.setItem('token', token);
+      const response = await login(targetEmail, targetPass);
+      const token = response.token || response.data?.token || response.accessToken || 'dummy-jwt-token';
+      const user = response.user || {
+        id: `usr-${Date.now()}`,
+        email: targetEmail,
+        name: 'User',
+        role: 'university_admin' as UserRole,
+      };
+
+      loginAsUser(user, token);
       navigate(from, { replace: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Invalid credentials. Please try again.');
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleAuth(email, password);
+  };
+
+  const selectDemoRole = (demoEmail: string) => {
+    setEmail(demoEmail);
+    setPassword('password123');
+    handleAuth(demoEmail, 'password123');
   };
 
   return (
@@ -59,7 +80,7 @@ export function LoginPage() {
           Welcome back
         </h2>
         <p className="mt-2 text-center text-sm text-text">
-          Sign in to your university dashboard
+          Sign in to your university dashboard with Role-Based Access Control
         </p>
       </motion.div>
 
@@ -70,7 +91,7 @@ export function LoginPage() {
         className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10"
       >
         <div className="bg-white/80 backdrop-blur-xl py-8 px-4 shadow-card sm:rounded-3xl sm:px-10 border border-white">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-5" onSubmit={handleSubmit}>
             {error && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
@@ -142,6 +163,26 @@ export function LoginPage() {
               </button>
             </div>
           </form>
+
+          <div className="mt-6 border-t border-border pt-5">
+            <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-muted mb-3">
+              <ShieldCheck className="h-4 w-4 text-primary" />
+              <span>Demo Quick Sign-In (Select Role)</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {DEMO_ROLES.map((demo) => (
+                <button
+                  key={demo.role}
+                  type="button"
+                  onClick={() => selectDemoRole(demo.email)}
+                  className="flex items-center gap-1.5 rounded-full border border-border bg-surface-soft px-3 py-1.5 text-xs font-semibold text-heading hover:bg-primary-soft hover:text-primary transition-colors"
+                >
+                  <UserCheck className="h-3.5 w-3.5" />
+                  <span>{demo.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </motion.div>
     </div>

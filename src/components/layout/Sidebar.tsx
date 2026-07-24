@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
-import { GraduationCap, Hash, Users, Shield, UserRound } from 'lucide-react';
+import { GraduationCap, Hash, Users, Shield, LogOut } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/features/auth/context/AuthContext';
 
 type SidebarProps = {
   mobileOpen: boolean;
@@ -16,6 +17,16 @@ const items = [
 ];
 
 export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
+  const { user, logout } = useAuth();
+  const initials = user?.name
+    ? user.name
+        .split(' ')
+        .map((n) => n[0])
+        .join('')
+        .slice(0, 2)
+        .toUpperCase()
+    : 'AU';
+
   return (
     <>
       <aside
@@ -57,15 +68,15 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
             </div>
             <div className="mb-4 flex items-center gap-2 px-2">
               <div className="flex -space-x-2">
-                {['SA', 'RC', 'PP'].map((initials, index) => (
+                {['SA', 'RC', 'PP'].map((inits, index) => (
                   <div
-                    key={initials}
+                    key={inits}
                     className={cn(
                       'flex h-7 w-7 items-center justify-center rounded-full border-2 border-white text-[10px] font-bold text-white shadow-sm',
                       index === 0 ? 'bg-primary' : index === 1 ? 'bg-success' : 'bg-accent-purple',
                     )}
                   >
-                    {initials}
+                    {inits}
                   </div>
                 ))}
               </div>
@@ -74,16 +85,21 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
               </div>
             </div>
 
-            <div className="flex items-center gap-3 rounded-2xl border border-border bg-surface-muted px-3 py-3 shadow-sm">
+            <button
+              type="button"
+              onClick={logout}
+              title="Click to Log Out"
+              className="flex w-full items-center gap-3 rounded-2xl border border-border bg-surface-muted px-3 py-3 shadow-sm hover:bg-hover transition-colors text-left"
+            >
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[linear-gradient(135deg,#6C1D5F,#4A1E47)] text-sm font-semibold text-white">
-                AU
+                {initials}
               </div>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-semibold text-heading">Admin User</p>
-                <p className="truncate text-xs text-text">admin@university.edu</p>
+                <p className="truncate text-sm font-semibold text-heading">{user?.name || 'Admin User'}</p>
+                <p className="truncate text-xs text-text">{user?.email || 'admin@university.edu'}</p>
               </div>
-              <UserRound className="h-4 w-4 text-muted" />
-            </div>
+              <LogOut className="h-4 w-4 text-muted hover:text-danger transition-colors" />
+            </button>
           </div>
         </div>
       </aside>

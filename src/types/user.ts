@@ -1,4 +1,4 @@
-export type UserRole = 'super_admin' | 'university_admin' | 'faculty' | 'student' | 'finance_admin';
+export type UserRole = 'super_admin' | 'university_admin' | 'department_head' | 'faculty' | 'student' | 'finance_admin';
 
 export type User = {
   id: string;

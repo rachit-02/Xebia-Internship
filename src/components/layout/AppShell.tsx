@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import { Bell, Grid3X3, Menu, Search, UserCircle2 } from 'lucide-react';
+import { Bell, Grid3X3, Menu, Search, LogOut } from 'lucide-react';
 import { Sidebar } from './Sidebar';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/features/auth/context/AuthContext';
 
 type AppShellProps = {
   children: ReactNode;
@@ -10,6 +11,9 @@ type AppShellProps = {
 
 export function AppShell({ children }: AppShellProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, logout } = useAuth();
+
+  const formattedRole = user?.role ? user.role.replace('_', ' ').toUpperCase() : 'ADMIN';
 
   return (
     <div className="min-h-screen bg-background text-heading xl:grid xl:grid-cols-[280px_1fr]">
@@ -46,16 +50,21 @@ export function AppShell({ children }: AppShellProps) {
             <div className="flex items-center gap-2">
               <ActionIcon ariaLabel="Notifications" icon={<Bell className="h-4 w-4" />} />
               <ActionIcon ariaLabel="Grid menu" icon={<Grid3X3 className="h-4 w-4" />} />
-              <div className="flex items-center gap-3 rounded-full border border-border bg-white px-3 py-2 shadow-sm">
+              <button
+                type="button"
+                onClick={logout}
+                title="Click to Log Out"
+                className="flex items-center gap-3 rounded-full border border-border bg-white px-3 py-2 shadow-sm hover:bg-surface-muted transition-colors text-left"
+              >
                 <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(135deg,#6C1D5F,#84117C)] text-sm font-semibold text-white">
-                  X
+                  {user?.name ? user.name.slice(0, 2).toUpperCase() : 'AU'}
                 </div>
                 <div className="hidden sm:block">
-                  <p className="text-sm font-semibold text-heading">Xebia Admin</p>
-                  <p className="text-xs text-text">Academic Operations</p>
+                  <p className="text-sm font-semibold text-heading">{user?.name || 'Admin User'}</p>
+                  <p className="text-xs text-primary font-medium">{formattedRole}</p>
                 </div>
-                <UserCircle2 className="h-4 w-4 text-muted" />
-              </div>
+                <LogOut className="h-4 w-4 text-muted hover:text-danger transition-colors" />
+              </button>
             </div>
           </div>
         </header>

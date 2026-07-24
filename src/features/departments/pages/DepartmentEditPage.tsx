@@ -8,6 +8,8 @@ import { ConfirmationModal } from '../components/ConfirmationModal';
 import { DeleteDialog } from '../components/DeleteDialog';
 import { getDepartmentById, deleteDepartment, updateDepartment } from '../api/departments';
 import type { Department } from '@/types/department';
+import { useAuth } from '@/features/auth/context/AuthContext';
+import { canEditDepartment, canDeleteDepartment } from '@/features/auth/utils/permissions';
 
 export function DepartmentEditPage() {
   const { departmentId = '' } = useParams();
@@ -15,6 +17,8 @@ export function DepartmentEditPage() {
   const [showDiscard, setShowDiscard] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [saved, setSaved] = useState(false);
+  const { user } = useAuth();
+  const role = user?.role || 'student';
 
   const departmentQuery = useQuery({ queryKey: ['department', departmentId], queryFn: async () => getDepartmentById(departmentId) });
   const updateMutation = useMutation({ mutationFn: ({ id, values }: { id: string; values: Partial<Department> }) => updateDepartment(id, values) });
@@ -22,11 +26,21 @@ export function DepartmentEditPage() {
 
   const department = departmentQuery.data;
 
+  const isEditable = department ? canEditDepartment(role, department.id, user?.departmentId) : false;
+  const isDeletable = canDeleteDepartment(role);
+
   useEffect(() => {
     if (!departmentQuery.isLoading && !department) {
       navigate('/departments', { replace: true });
     }
   }, [department, departmentQuery.isLoading, navigate]);
+
+  // Redirect if user does not have edit permissions for this department
+  useEffect(() => {
+    if (!departmentQuery.isLoading && department && !isEditable) {
+      navigate(`/departments/${department.id}`, { replace: true });
+    }
+  }, [department, departmentQuery.isLoading, isEditable, navigate]);
 
   const handleSubmit = async (values: DepartmentFormValues) => {
     if (!department) return;
@@ -40,7 +54,7 @@ export function DepartmentEditPage() {
     setSaved(true);
   };
 
-  return department ? (
+  return department && isEditable ? (
     <div className="space-y-6">
       <DepartmentHeader title="Edit Department" subtitle="Update the department with the same layout and validation as the create form." showActions={false} />
       <DepartmentForm
@@ -57,7 +71,7 @@ export function DepartmentEditPage() {
         }}
         onSubmit={handleSubmit}
         onCancel={() => setShowDiscard(true)}
-        onDelete={() => setShowDelete(true)}
+        onDelete={isDeletable ? () => setShowDelete(true) : undefined}
       />
       <ConfirmationModal
         open={showDiscard}
@@ -67,15 +81,17 @@ export function DepartmentEditPage() {
         onConfirm={() => navigate(`/departments/${department.id}`)}
         confirmLabel="Discard Changes"
       />
-      <DeleteDialog
-        open={showDelete}
-        name={department.name}
-        onClose={() => setShowDelete(false)}
-        onConfirm={async () => {
-          await deleteMutation.mutateAsync(department.id);
-          navigate('/departments');
-        }}
-      />
+      {isDeletable && (
+        <DeleteDialog
+          open={showDelete}
+          name={department.name}
+          onClose={() => setShowDelete(false)}
+          onConfirm={async () => {
+            await deleteMutation.mutateAsync(department.id);
+            navigate('/departments');
+          }}
+        />
+      )}
       <ConfirmationModal
         open={saved}
         title="Changes saved"
@@ -87,3 +103,4 @@ export function DepartmentEditPage() {
     </div>
   ) : null;
 }
+
