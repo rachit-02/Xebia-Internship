@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<![CDATA[# 🏛️ University Department Dashboard
+# 🏛️ University Department Dashboard
 
 > A modern, role-based university department management system built with **React 19**, **TypeScript**, **Vite**, and **Tailwind CSS v4**. Features a full RBAC (Role-Based Access Control) login system with 5 distinct user roles, department CRUD operations, CSV import/export, and a polished glassmorphism UI.
 
@@ -86,7 +85,7 @@ src/
 │       └── Modal.tsx             # Modal dialog component
 │
 ├── features/                     # Feature-based modules
-│   ├── auth/                     # 🔐 Authentication module
+│   ├── auth/                     # Authentication module
 │   │   ├── api/
 │   │   │   └── auth.ts           # Login/logout API calls + mock fallback
 │   │   ├── context/
@@ -96,7 +95,7 @@ src/
 │   │   └── utils/
 │   │       └── permissions.ts    # RBAC permission helper functions
 │   │
-│   ├── departments/              # 🏢 Department management module
+│   ├── departments/              # Department management module
 │   │   ├── api/                  # Department API calls
 │   │   ├── components/           # Department-specific UI components
 │   │   │   ├── ConfirmationModal.tsx
@@ -122,7 +121,7 @@ src/
 │   │       ├── DepartmentListPage.tsx
 │   │       └── DepartmentUsersPage.tsx
 │   │
-│   └── users/                    # 👥 User management module
+│   └── users/                    # User management module
 │       └── api/                  # User API calls
 │
 ├── lib/
@@ -147,14 +146,14 @@ src/
 
 ### Prerequisites
 
-- **Node.js** ≥ 18.x
-- **npm** ≥ 9.x (or **yarn** / **pnpm**)
+- **Node.js** >= 18.x
+- **npm** >= 9.x (or **yarn** / **pnpm**)
 
 ### Installation
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/Xebia-Internship.git
+git clone https://github.com/rachit-02/Xebia-Internship.git
 cd Xebia-Internship-main
 
 # 2. Install dependencies
@@ -192,7 +191,7 @@ https://university-dashboard-backend-9t0x.onrender.com
 | `/api/v1/departments/:id` | `PUT` | Update a department |
 | `/api/v1/departments/:id` | `DELETE` | Delete a department |
 
-> **⚠️ Note:** If the backend server is cold (inactive on Render free tier), the first request may take 30–60 seconds to spin up. The app includes a **mock authentication fallback** that works offline — so you can still log in and explore the UI even if the backend is unavailable.
+> **Note:** If the backend server is cold (inactive on Render free tier), the first request may take 30-60 seconds to spin up. The app includes a **mock authentication fallback** that works offline — so you can still log in and explore the UI even if the backend is unavailable.
 
 ---
 
@@ -200,20 +199,20 @@ https://university-dashboard-backend-9t0x.onrender.com
 
 | Route | Page | Auth Required |
 |---|---|---|
-| `/login` | Login Page | ❌ |
-| `/departments` | Department List (Dashboard) | ✅ |
-| `/departments/new` | Create New Department | ✅ (Admin+ only) |
-| `/departments/:id` | Department Details | ✅ |
-| `/departments/:id/edit` | Edit Department | ✅ (Admin/Head only) |
-| `/departments/users` | Department Users List | ✅ |
+| `/login` | Login Page | No |
+| `/departments` | Department List (Dashboard) | Yes |
+| `/departments/new` | Create New Department | Yes (Admin+ only) |
+| `/departments/:id` | Department Details | Yes |
+| `/departments/:id/edit` | Edit Department | Yes (Admin/Head only) |
+| `/departments/users` | Department Users List | Yes |
 
 ---
 
 ## 🎨 Design Highlights
 
 - **Glassmorphism UI** — Frosted-glass card effects with backdrop blur
-- **Animated transitions** — Powered by Framer Motion for smooth page & component animations
-- **Gradient accents** — Primary purple gradient (`#6C1D5F` → `#84117C`) for brand identity
+- **Animated transitions** — Powered by Framer Motion for smooth page and component animations
+- **Gradient accents** — Primary purple gradient for brand identity
 - **Responsive sidebar** — Collapsible navigation with role-aware menu items
 - **Interactive data tables** — Sortable, filterable department lists with card/table toggle views
 - **Status indicators** — Color-coded active/inactive badges throughout the UI
@@ -261,81 +260,3 @@ This project was developed as part of the **Xebia Internship Program**.
 <p align="center">
   Built with ❤️ using React + TypeScript + Vite
 </p>
-]]>
-=======
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
->>>>>>> 61f050716a10c44381a3fd29e857e9d359f4ac95
